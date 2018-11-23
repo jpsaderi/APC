@@ -65,7 +65,7 @@ int Altura = 13 , Largura = 8;
 char Mat[50][50];
 int pos1, pos2, pos_x1, pos_x2, pos_y1, pos_y2;
 int Pontuacao = 0;
-int Perdeu = FALSE;
+int Perdeu = FALSE, Bloco_vertical = FALSE;
 
 void Clear(){
 	printf("\033c");
@@ -136,7 +136,10 @@ void CriarLetras(){
 }
 
 void TrocarLetras(){
-	Vet[]
+	char aux;
+	aux = Vet[pos_y1][pos_x1];
+	Vet[pos_y1][pos_x1] = Vet[pos_y2][pos_x2];
+	Vet[pos_y2][pos_x2] = aux;
 }
 
 void DescerLetras(){
@@ -151,67 +154,18 @@ void DescerLetras(){
 
 }
 
-int DescerLetra(){
-	int achou=0,achoumelhor=0;
-	/*verifica se o termo depois dele eh um
-	espaco vazio e se for faz ela descer*/
-	if (y1==0 || y2==0){
-		verifverti=0;
+
+
+
+
+void MoverDireita(){
+	if(Bloco_vertical == FALSE){
+		if(Mat[pos_x1]po)
 	}
-	if (verifverti == 0){  // horizontal
-		if (matriz[y1+1][x1] == ' '){
-			matriz[y1+1][x1] = matriz[y1][x1];
-			matriz[y1][x1] = ' ';
-			y1++;
-		}		
-		else
-			achou=1;
-		if (matriz[y2+1][x2] == ' '){
-			matriz[y2+1][x2] = matriz[y2][x2];
-			matriz[y2][x2] = ' ';
-			y2++;
-		}
-		else
-			achoumelhor=1;
-		if (achou && achoumelhor){
-			if(!CriaLetra(matriz)){
-				return 0;
-			}
-			return 1;
-		}
-		return 1;
-	}
-	else{
-		if (matriz[y2+1][x2] == ' '){
-			matriz[y2+1][x2] = matriz[y2][x2];
-			matriz[y2][x2] = ' ';
-			y2++;
-		}
-		else
-			achou=1;
-		if (matriz[y1][x1+1] == ' '){
-			matriz[y1][x1+1] = matriz[y1-1][x1+1];
-			matriz[y1-1][x1+1] = ' ';
-			y1++;
-		}
-		else
-			achoumelhor=1;
-		if (achou && achoumelhor){
-			if(!CriaLetra(matriz)){
-				return 0;
-			}
-			return 1;
-		}
-		return 1;
-	}
+
+
+
 }
-
-
-
-
-
-
-//void MoverDireita(int Vet[][], int )
 
 
 
@@ -258,10 +212,10 @@ void Imprimir_matriz(){
 
 
 int main(){
-	int letra1, letra2, i;
+	int letra1, letra2;
 	srand(time(NULL));
 	Inicializar_matriz();
-	for(i = 0; i < 20 && Perdeu == FALSE; i++){
+	while(Perdeu == FALSE){
 		Clear();
 		CriarLetras();
 		usleep(500000);
