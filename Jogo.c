@@ -137,35 +137,56 @@ void CriarLetras(){
 
 void TrocarLetras(){
 	char aux;
-	aux = Vet[pos_y1][pos_x1];
-	Vet[pos_y1][pos_x1] = Vet[pos_y2][pos_x2];
-	Vet[pos_y2][pos_x2] = aux;
+	aux = Mat[pos_y1][pos_x1];
+	Mat[pos_y1][pos_x1] = Mat[pos_y2][pos_x2];
+	Mat[pos_y2][pos_x2] = aux;
 }
 
 void DescerLetras(){
-	int chegoufim1, chegoufim2;
-	int x1, x2, y1, y2;
-	x1 = pos1;
-	x2 = pos2
-	y1 = 0;
-	y2 = 0;
-
-	if()
-
-}
-
-
-
-
-
-void MoverDireita(){
-	if(Bloco_vertical == FALSE){
-		if(Mat[pos_x1]po)
+	int i,j;
+	int chegou_fim1 = FALSE, chegou_fim2 = FALSE;
+	for(i = Altura-1;i >= 0;i--){
+		for(j = 0;j < Largura-1;j++){
+			if(Mat[i][j] >= 'A' && Mat[i][j] <= 'E'){
+				if(Mat[i+1][j] == ' '){
+					if(i == pos_y1){
+						Mat[i+1][j] = Mat[i][j];
+						Mat[i][j] = ' ';
+						pos_y1++;
+					}
+					else{
+						Mat[i+1][j] = Mat[i][j];
+						Mat[i][j] = ' ';
+						pos_y2++;
+					}
+				}
+			}
+			if(pos_y1 == i && Mat[pos_y1+1][pos_x1] != ' '){
+				chegou_fim1 = TRUE;
+			}
+			if(pos_y2 == i && Mat[pos_y2+1][pos_x2] != ' '){
+				chegou_fim2 = TRUE;
+			}
+		}
+	}
+	if(chegou_fim1 == TRUE && chegou_fim2 == TRUE){
+		CriarLetras();
 	}
 
-
-
 }
+
+
+
+
+
+// void MoverDireita(){
+// 	if(Bloco_vertical == FALSE){
+// 		if(Mat[pos_x1]po)
+// 	}
+
+
+
+// }
 
 
 
@@ -215,11 +236,13 @@ int main(){
 	int letra1, letra2;
 	srand(time(NULL));
 	Inicializar_matriz();
+	Imprimir_matriz();
+	CriarLetras();
 	while(Perdeu == FALSE){
 		Clear();
-		CriarLetras();
-		usleep(500000);
 		Imprimir_matriz();
+		DescerLetras();
+		usleep(250000);
 	}
 
 
